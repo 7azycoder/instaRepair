@@ -93,33 +93,33 @@ if(!$user->isLoggedIn()){
         ?-->
             
             <div class="row">
-                      <form class="col s12" action="editProfileScript.php" method="post" >
+                      <form class="col s12" id="editProfile" name="editProfile" method="post">
                         <div class="row">
                           
                           <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">account_circle</i>
-                            <input  name="firstName" type="text" value="<?php echo escape($data->firstName);?>" autocomplete="off">
+                            <input id="firstName" name="firstName" type="text" value="<?php echo escape($data->firstName);?>" autocomplete="off">
                             <label class="active" for="firstName">First Name</label>
                           </div>
 
 
                           <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">account_circle</i>
-                            <input  name="lastName" type="text"  value="<?php echo escape($data->lastName);?>" autocomplete="off">
+                            <input id="lastName" name="lastName" type="text"  value="<?php echo escape($data->lastName);?>" autocomplete="off">
                             <label class="active" for="lastName">Last Name</label>
                           </div>
 
 
                           <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">phone</i>
-                            <input name="contactNo" type="text" value="<?php echo escape($data->contactNo);?>" autocomplete="off">
+                            <input id="contactNo" name="contactNo" type="text" value="<?php echo escape($data->contactNo);?>" autocomplete="off">
                             <label class="active" for="contactNo">Contact No</label>
                           </div>
 
 
                           <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">email</i>
-                            <input name="email" type="text" value="<?php echo escape($data->email);?>" autocomplete="off">
+                            <input id="email" name="email" type="text" value="<?php echo escape($data->email);?>" autocomplete="off">
                             <label class="active" for="email">Email</label>
                           </div>
 
@@ -127,13 +127,13 @@ if(!$user->isLoggedIn()){
 
                             <div class="input-field col s12 m12 l12">
                             <i class="material-icons prefix">store</i>
-                            <textarea name="address" class="materialize-textarea" autocomplete="off"><?php echo escape($data->address);?></textarea>
+                            <textarea id="address" name="address" class="materialize-textarea" autocomplete="off"><?php echo escape($data->address);?></textarea>
                             <label class="active" for="address">Address</label>
                           </div>    
                                                   
                           <div class="input-field col s12 m12 l12 center">
                            
-                             <button class="btn waves-effect waves-light" type="submit">Done
+                             <button class="btn waves-effect waves-light" id="profile" type="submit" value="submit">Done
                                 <i class="material-icons right">done_all</i>
                               </button>
                           </div>
@@ -152,6 +152,34 @@ if(!$user->isLoggedIn()){
   </div>
 
 </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+$("#profile").click(function() {
+var firstName = $("#firstName").val();
+var lastName = $("#lastName").val();
+var address = $("#address").val();
+var email = $("#email").val();
+var contactNo = $("#contactNo").val();
+
+if (firstName == '' || lastName == '' || email == '' || contactNo == '' || address == '') {
+alert("Insertion Failed Some Fields are Blank....!!");
+} else {
+// Returns successful data submission message when the entered information is stored in database.
+$.post("editProfileScript.php", {
+firstName1: firstName,
+email1: email,
+contactNo1: contactNo,
+address1: address,
+lastName1: lastName
+}, function(data) {
+alert(data);
+
+});
+}
+});
+});
+</script>
+
 
 <?php
 }
