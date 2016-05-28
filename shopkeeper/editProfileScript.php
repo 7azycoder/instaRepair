@@ -14,49 +14,17 @@ $errors = array();
 //Retrieve form data. 
 //GET - user submitted data using AJAX
 //POST - in case user does not support javascript, we'll use POST instead
-$firstName2 = $_POST['firstName1'];
-$lastName2 = $_POST['lastName1'];
-$address2 = $_POST['address1'];
-$contactNo2= $_POST['contactNo1'];
-$email2 = $_POST['email1'];
+$firstName2 = $_POST['firstName'];
+$lastName2 = $_POST['lastName'];
+$address2 = $_POST['address'];
+$contactNo2= $_POST['contactNo'];
+$email2 = $_POST['email'];
 //flag to indicate which method it uses. If POST set it to 1
 
 if ($_POST) $post=1;
 
-//Simple server side validation for POST data, of course, you should validate the email
-if (!$firstName2) $errors[count($errors)] = 'Please enter First name.';
-	else if (!preg_match("/^[a-zA-Z ]*$/",$firstName2)) {
-       $errors[count($errors)] = "Only letters and white space allowed";
-     }
-
-if (!$lastName2) $errors[count($errors)] = 'Please enter Last name.';
-	else if (!preg_match("/^[a-zA-Z ]*$/",$lastName2)) {
-       $errors[count($errors)] = "Only letters and white space allowed";
-     }
-
-if (!$address2) $errors[count($errors)] = 'Please enter address.';
-else {
-    	if(strlen($address2)<2)
-    		$errors[count($errors)] = "Address is too short (min 2 characters are required).";
-    		else if(strlen($address2)>150)
-    			$errors[count($errors)] = "Address is too long (max 150 characters are allowed).";
-    } 
-
-
-if (!$contactNo2) $errors[count($errors)] = 'Please enter Contact Number.';
-	else {
-    	if(strlen($contactNo2)>13 && strlen($contactNo2)<10)
-    		$errors[count($errors)] = "Phone number is of invalid length.";
-    }  
-
-if (!$email2) $errors[count($errors)] = 'Please enter email.';
- else if (!filter_var($email2, FILTER_VALIDATE_EMAIL)) {
-       $errors[count($errors)] = "Email format is not valid.";
-     }
-
-
 //if the errors array is empty, send the mail
-if (!$errors){
+if (1){
                 try{
                   $user->update(array(
                              'firstName' => $firstName2,
@@ -88,12 +56,7 @@ if (!$errors){
 	}
 
 //if the errors array has values
-} else {
-	//display the errors message
-	$return_string = '';
-	for ($i=0; $i<count($errors); $i++) $return_string .= '\n'. $errors[$i];
-	echo $return_string;
-}
+} 
 
 }
 ?>
