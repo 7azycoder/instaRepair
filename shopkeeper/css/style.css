@@ -626,3 +626,13 @@ footer.page-footer {
   width: 100%;
 }
 
+/* image upload */
+
+
+
+
+#loading
+{
+display:none;
+font-size:25px;
+}

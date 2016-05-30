@@ -23,8 +23,40 @@ $email2 = $_POST['email'];
 
 if ($_POST) $post=1;
 
+//Simple server side validation for POST data, of course, you should validate the email
+if (!$firstName2) $errors[count($errors)] = 'Please enter First name !';
+	else if (!preg_match("/^[a-zA-Z ]*$/",$firstName2)) {
+       $errors[count($errors)] = 'Only letters and white space allowed !';
+     }
+
+if (!$lastName2) $errors[count($errors)] = 'Please enter Last name !';
+	else if (!preg_match("/^[a-zA-Z ]*$/",$lastName2)) {
+       $errors[count($errors)] = 'Only letters and white space allowed !' ;
+     }
+
+if (!$address2) $errors[count($errors)] = 'Please enter address !';
+else {
+    	if(strlen($address2)<4)
+    		$errors[count($errors)] = 'Address is too short (min 4 characters are required) !';
+    	if(strlen($address2)>150)
+    		$errors[count($errors)] = 'Address is too long (max 150 characters are allowed) !';
+    } 
+
+
+if (!$contactNo2) $errors[count($errors)] = 'Please enter Contact Number !';
+	else {
+    	if(strlen($contactNo2)>13 || strlen($contactNo2)<10)
+    		$errors[count($errors)] = 'Contact no is not valid !';
+    }  
+
+if (!$email2) $errors[count($errors)] = 'Please enter email !';
+ else if (!filter_var($email2, FILTER_VALIDATE_EMAIL)) {
+       $errors[count($errors)] = 'Email format is not valid !';
+     }
+
+
 //if the errors array is empty, send the mail
-if (1){
+if (!$errors){
                 try{
                   $user->update(array(
                              'firstName' => $firstName2,
@@ -41,10 +73,10 @@ if (1){
 	//if POST was used, display the message straight away
 	if ($_POST) {
 		if ($result) {
-			echo 'Your Details have been updated !';
+			echo '<b> Your Details have been updated ! </b>';
 		}
 		else {
-		echo 'Sorry, unexpected error. Please try again later !';
+		echo '<b> Sorry, unexpected error. Please try again later ! </b>';
 		
 		}
 		
@@ -56,7 +88,11 @@ if (1){
 	}
 
 //if the errors array has values
-} 
+} else {
+	//display the errors message
+	$return_string = '';
+	for ($i=0; $i<count($errors); $i++) echo  '<b>' . $errors[$i] . '</b><br>';
+}
 
 }
 ?>

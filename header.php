@@ -21,6 +21,7 @@
     <a class="mdl-layout-title"><img class="responsive-img" src="images/logo.png"></a>
     <nav class="mdl-navigation">
     <li class="divider"></li>
+       <a class="mdl-navigation__link" href="index.php">Home</a>
       <a class="mdl-navigation__link" href="aboutUs.php">About Us</a>
       <a class="mdl-navigation__link" href="repairs.php">Find Repair Shop Nearby</a>
       

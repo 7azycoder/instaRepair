@@ -124,7 +124,7 @@ else {
   <script src="js/material.js"></script>
   <script src="js/init.js"></script>
   <script type="text/javascript" src="js/load.js"></script>
-  
+  <script type="text/javascript" src="js/editProfileScript.js"></script>
   </body>
 </html>
 

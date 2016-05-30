@@ -38,13 +38,14 @@ else {
               <div class="col s8">
                      <div class="card-panel teal">
                       <span class="white-text">
-                          <div><?php echo escape($data->shopNo); ?></div>
-                          <div><?php echo escape($data->shopName); ?></div>
-                          <div><?php echo escape($data->shopDescription); ?></div>
-                          <div><?php echo escape($data->shopLevel); ?></div>
-                          <div><?php echo escape($data->shopAddress); ?></div>
-                          <div><?php echo escape($data->shopContactNo); ?></div>
-                          <div><?php echo escape($data->shopEmail); ?></div>
+                          <div>Shop No : <?php echo escape($data->shopNo); ?></div>
+                          <div>Shop Name : <?php echo escape($data->shopName); ?></div>
+                          <div>Shop Description : <?php echo escape($data->shopDescription); ?></div>
+                          <div>Shop Level : <?php echo escape($data->shopLevel); ?></div>
+                          <div>Shop Category : <?php echo escape($data->shopCategory); ?></div>
+                          <div>Shop Address : <?php echo escape($data->shopAddress); ?></div>
+                          <div>Shop Contact No : <?php echo escape($data->shopContactNo); ?></div>
+                          <div>Shop Email : <?php echo escape($data->shopEmail); ?></div>
                       </span>
                     </div>
                   

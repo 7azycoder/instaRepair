@@ -24,29 +24,29 @@ echo "Return Code: " . $_FILES["file"]["error"] . "<br/><br/>";
 }
 else
 {
-if (file_exists("images/profileImages/" . $data->username . '.'. $file_extension)) {
-	unlink("images/profileImages/" . $data->username . '.'. $file_extension);
+if (file_exists("images/shopImages/" . $data->username . '.'. $file_extension)) {
+	unlink("images/shopImages/" . $data->username . '.'. $file_extension);
 
 }
 
 
 $sourcePath = $_FILES['file']['tmp_name']; // Storing source path of the file in a variable
-$targetPath = "images/profileImages/".$_FILES['file']['name']; // Target path where file is to be stored
+$targetPath = "images/shopImages/".$_FILES['file']['name']; // Target path where file is to be stored
 move_uploaded_file($sourcePath,$targetPath) ; // Moving Uploaded file
 
- $oldname = "images/profileImages/".$_FILES['file']['name'];
- $newname = "images/profileImages/" . $data->username . '.'. $file_extension; 
+ $oldname = "images/shopImages/".$_FILES['file']['name'];
+ $newname = "images/shopImages/" . $data->username . '.'. $file_extension; 
      rename ($oldname, $newname);
 
                try{
                             $user->update(array(
-                              'profileImage' =>  $data->username . '.' . $file_extension                                                        
+                              'shopImage' =>  $data->username . '.' . $file_extension                                                        
                              ));
                                    
                  }catch(Exception $e) {
                                     die($e->getMessage());
                     }
-echo "<span id='success'>Image Uploaded Successfully...<br> You need to logout and login again to view changes in profile picture!!</span><br/>";
+echo "<span id='success'>Image Uploaded Successfully...<br> You need to logout and login again to view changes in Shop picture!!</span><br/>";
 /*echo "<br/><b>File Name:</b> " . $_FILES["file"]["name"] . "<br>";
 echo "<b>Type:</b> " . $_FILES["file"]["type"] . "<br>";
 echo "<b>Size:</b> " . ($_FILES["file"]["size"] / 1024) . " kB<br>";

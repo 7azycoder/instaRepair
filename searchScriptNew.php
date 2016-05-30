@@ -1,14 +1,9 @@
 <?php	
 require_once('core/init.php');	
-$q = $_REQUEST["q"];
-/*
-if ($q !== "") {
-    $q = strtolower($q);
-    $len=strlen($q);
-}
-*/
 
-//SQL statement to select what to search	
+$shopCategory = $_POST['shopCategory'];
+$shopLevel = $_POST['shopLevel'];
+$searchTerm = $_POST['searchTerm'];
 
 
 $con = mysqli_connect('localhost','root','','instaRepair');
@@ -18,10 +13,47 @@ if (!$con) {
 
 mysqli_select_db($con,"instaRepair");
 
-$sql="SELECT * FROM shopkeeper	
-WHERE shopName like '%$q%' OR	
-shopDescription like '%$q%' OR shopAddress like '%$q%' OR shopCategory like '%$q%' OR shopLevel like '%$q%'
-ORDER BY shopName ASC";	
+
+$sql="";
+
+if($searchTerm == "" && $shopCategory != "" && $shopLevel=="" ){
+  $sql="SELECT * FROM shopkeeper  
+WHERE shopCategory like '%$shopCategory%'
+ORDER BY shopName ASC"; 
+
+} elseif($searchTerm == "" && $shopCategory == "" && $shopLevel!="" )
+{ 
+  $sql="SELECT * FROM shopkeeper  
+WHERE shopLevel like '%$shopLevel%'
+ORDER BY shopName ASC"; 
+
+} elseif ($searchTerm != "" && $shopCategory == "" && $shopLevel=="" ) {
+    $sql="SELECT * FROM shopkeeper  
+WHERE shopName like '%$searchTerm%' OR shopDescription like '%$searchTerm%' OR shopAddress like '%$searchTerm%'
+ORDER BY shopName ASC"; 
+
+  } elseif ($searchTerm != "" && $shopCategory != "" && $shopLevel=="") {
+    $sql="SELECT * FROM shopkeeper  
+WHERE shopName like '%$searchTerm%' OR shopDescription like '%$searchTerm%' OR shopAddress like '%$searchTerm%' AND shopCategory like '%$shopCategory%'
+ORDER BY shopName ASC"; 
+  }
+  elseif ($searchTerm != "" && $shopCategory == "" && $shopLevel!="") {
+    $sql="SELECT * FROM shopkeeper  
+WHERE shopName like '%$searchTerm%' OR shopDescription like '%$searchTerm%' OR shopAddress like '%$searchTerm%' AND shopLevel like '%$shopLevel%'
+ORDER BY shopName ASC"; 
+  }
+
+  elseif($searchTerm == "" && $shopCategory != "" && $shopLevel!=""){
+     $sql="SELECT * FROM shopkeeper  
+WHERE shopLevel like '%$shopLevel%' AND shopCategory like '%$shopCategory%'
+ORDER BY shopName ASC"; 
+  }
+  elseif($searchTerm != "" && $shopCategory != "" && $shopLevel!=""){
+    $sql="SELECT * FROM shopkeeper  
+WHERE shopName like '%$searchTerm%' OR shopDescription like '%$searchTerm%' OR shopAddress like '%$searchTerm%' AND shopLevel like '%$shopLevel%'AND shopCategory like '%$shopCategory%' 
+ORDER BY shopName ASC"; 
+  }
+
 
 $result = mysqli_query($con,$sql);
 
