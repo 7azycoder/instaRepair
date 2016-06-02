@@ -10,7 +10,7 @@
         <div class="col l3 s12">
           <h5 class="white-text">Navigation</h5>
           <ul>
-            <li><a class="white-text" href="#!">About Us</a></li>
+            <!--li><a class="white-text" href="#!">About Us</a></li-->
             <li><a class="white-text" href="shopLogin.php">Shopkeeper Login</a></li>
             <li><a class="white-text" href="shopRegister">Shopkeeper Register</a></li>
             <li><a class="white-text" href="repairs.php">Repairs</a></li>
@@ -21,7 +21,7 @@
           <h5 class="white-text">Contact Us</h5>
           <ul>
             
-            <li><a class="white-text" href="#!">dev.lovepreetsingh@gmail.com</a></li>
+            <li><a class="white-text" href="https://github.com/devlovepreet">dev.lovepreetsingh@gmail.com</a></li>
             
           </ul>
         </div>
@@ -29,7 +29,7 @@
     </div>
     <div class="footer-copyright">
       <div class="container">
-      Made by <a class="white-text" href="http://materializecss.com">Lovepreet Singh</a>
+      Made by <a class="white-text" href="https://github.com/devlovepreet">Lovepreet Singh</a>
       </div>
     </div>
   </footer>

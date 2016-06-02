@@ -22,8 +22,8 @@
     <nav class="mdl-navigation">
     <li class="divider"></li>
        <a class="mdl-navigation__link" href="index.php">Home</a>
-      <a class="mdl-navigation__link" href="aboutUs.php">About Us</a>
-      <a class="mdl-navigation__link" href="repairs.php">Find Repair Shop Nearby</a>
+      <!--a class="mdl-navigation__link" href="aboutUs.php">About Us</a-->
+      <a class="mdl-navigation__link" href="repairs.php">Find Repair Shop</a>
       
       <li class="divider"></li>
       <a class="mdl-navigation__link" href="shopLogin.php">Shopkeeper Login</a>

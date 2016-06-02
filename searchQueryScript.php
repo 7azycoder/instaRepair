@@ -1,48 +1,84 @@
-<?php	
-require_once('core/init.php');	
-$q = $_REQUEST["q"];
-/*
-if ($q !== "") {
-    $q = strtolower($q);
-    $len=strlen($q);
-}
-*/
+<?php 
+require_once('core/init.php');  
 
-//SQL statement to select what to search	
+$shopCategory = $_POST['shopCategory'];
+$shopLevel = $_POST['shopLevel'];
+$searchTerm = $_POST['searchTerm'];
+
+//$shopCategory = "mobiles";
+//$shopLevel = "none";
+//$searchTerm = "youvi";
 
 
-$con = mysqli_connect('localhost','root','','instaRepair');
+$con = mysqli_connect('localhost','root','','instarepair');
 if (!$con) {
     die('Could not connect: ' . mysqli_error($con));
 }
 
 mysqli_select_db($con,"instaRepair");
 
-$sql="SELECT * FROM shopkeeper	
-WHERE shopName like '%$q%' OR	
-shopDescription like '%$q%' OR shopAddress like '%$q%' OR shopCategory like '%$q%' OR shopLevel like '%$q%'
-ORDER BY shopName ASC";	
+
+$sql="";
+
+if($searchTerm == "" && $shopCategory!="none" && $shopLevel=="none" ){
+  $sql="SELECT * FROM shopkeeper  
+WHERE shopCategory like '%$shopCategory%'
+ORDER BY shopName ASC"; 
+
+} elseif($searchTerm == "" && $shopCategory == "none" && $shopLevel!="none" )
+{ 
+  $sql="SELECT * FROM shopkeeper  
+WHERE shopLevel like '%$shopLevel%'
+ORDER BY shopName ASC"; 
+
+} elseif ($searchTerm != "" && $shopCategory=="none" && $shopLevel=="none" ) {
+    $sql="SELECT * FROM shopkeeper  
+WHERE shopName like '%$searchTerm%' OR shopDescription like '%$searchTerm%' OR shopAddress like '%$searchTerm%'
+ORDER BY shopName ASC"; 
+
+  } elseif ($searchTerm != "" && $shopCategory != "none" && $shopLevel=="none") {
+    $sql="SELECT * FROM shopkeeper  
+WHERE (shopName like '%$searchTerm%' OR shopDescription like '%$searchTerm%' OR shopAddress like '%$searchTerm%') AND (shopCategory like '%$shopCategory%')
+ORDER BY shopName ASC"; 
+  }
+  elseif ($searchTerm != "" && $shopCategory=="none" && $shopLevel!="none") {
+    $sql="SELECT * FROM shopkeeper  
+WHERE (shopName like '%$searchTerm%' OR shopDescription like '%$searchTerm%' OR shopAddress like '%$searchTerm%') AND (shopLevel like '%$shopLevel%')
+ORDER BY shopName ASC"; 
+  }
+
+  elseif($searchTerm == "" && $shopCategory != "none" && $shopLevel!="none"){
+     $sql="SELECT * FROM shopkeeper  
+WHERE (shopLevel like '%$shopLevel%') AND (shopCategory like '%$shopCategory%')
+ORDER BY shopName ASC"; 
+  }
+  else{
+    $sql="SELECT * FROM shopkeeper  
+WHERE (shopName like '%$searchTerm%)' OR (shopDescription like '%$searchTerm%') OR (shopAddress like '%$searchTerm%)' AND (shopLevel like '%$shopLevel%') AND  (shopCategory like '%$shopCategory%')
+ORDER BY shopName ASC"; 
+  }
+
 
 $result = mysqli_query($con,$sql);
 
 $hint = "";
 
-//loop through results and get variables	
+//loop through results and get variables  
 while ($row=mysqli_fetch_array($result)){
 
-$shopNo=$row["shopNo"];	
-$shopLevel=$row["shopLevel"];	
+$shopNo=$row["shopNo"]; 
+$shopLevel=$row["shopLevel"]; 
 $shopCategory=$row["shopCategory"]; 
-$shopName=$row["shopName"];	
-$shopDescription=$row["shopDescription"];	
-$shopAddress=$row["shopAddress"];	
-$shopImage=$row["shopImage"];	
+$shopName=$row["shopName"]; 
+$shopDescription=$row["shopDescription"]; 
+$shopAddress=$row["shopAddress"]; 
+$shopImage=$row["shopImage"]; 
 $shopContactNo=$row["shopContactNo"];
 $shopEmail=$row["shopEmail"];
 
-//assign a variable name to the image name	
-$filename = "shopkeeper/images/shopImages/$shopImage";
-	
+//assign a variable name to the image name  
+$filename = "shopkeeper/images/shopImages/" . $shopImage;
+  
 
 $hint .= '<div class="row">
                   <div class="col s12 card-panel">
@@ -77,6 +113,6 @@ $hint .= '<div class="row">
 
 }
 // Output "no suggestion" if no hint was found or output correct values 
-echo $hint === "" ? "No result found !" : $hint;
+echo $hint === "" ? json_encode("No result found !") : json_encode($hint);
 
 ?>
